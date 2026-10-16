@@ -1,0 +1,17 @@
+class Solution {
+    public void solveSudoku(char[][] board) { solve(board); }
+    boolean solve(char[][] b) {
+        for (int r = 0; r < 9; r++) for (int c = 0; c < 9; c++) {
+            if (b[r][c] != '.') continue;
+            for (char ch = '1'; ch <= '9'; ch++) {
+                if (!ok(b, r, c, ch)) continue;
+                b[r][c] = ch;
+                if (solve(b)) return true;
+                b[r][c] = '.';
+            } return false;
+        }   return true;
+    }
+    boolean ok(char[][] b, int r, int c, char ch) {
+        for (int i = 0; i < 9; i++) if (b[r][i] == ch || b[i][c] == ch || b[3*(r/3)+i/3][3*(c/3)+i%3] == ch) return false;
+        return true;
+    }   }
